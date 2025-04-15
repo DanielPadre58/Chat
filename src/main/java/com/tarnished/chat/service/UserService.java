@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.tarnished.chat.dto.CreateUserDTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,7 +29,12 @@ public class UserService {
     }
 
     public Optional<User> findById(UUID id) {
+
         return userRepository.findById(id);
+    }
+
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 
     public void deleteById(UUID id) {
