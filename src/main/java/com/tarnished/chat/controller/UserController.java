@@ -5,10 +5,9 @@ import com.tarnished.chat.entity.User;
 import com.tarnished.chat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -22,5 +21,15 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<User> create(@RequestBody CreateUserDTO userDTO) {
         return ResponseEntity.ok(userService.createUser(userDTO));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findById(@PathVariable String id) {
+        var user = userService.findById(UUID.fromString(id));
+        if(user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }

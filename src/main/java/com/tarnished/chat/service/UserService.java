@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.tarnished.chat.dto.CreateUserDTO;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -24,5 +26,9 @@ public class UserService {
         newUser.setCreatedAt(LocalDateTime.now());
 
         return userRepository.save(newUser);
+    }
+
+    public Optional<User> findById(UUID id) {
+        return userRepository.findById(id);
     }
 }
