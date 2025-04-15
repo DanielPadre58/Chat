@@ -1,12 +1,14 @@
 package com.tarnished.chat.controller;
 
 import com.tarnished.chat.dto.CreateUserDTO;
+import com.tarnished.chat.dto.UpdateUserDTO;
 import com.tarnished.chat.entity.User;
 import com.tarnished.chat.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -42,5 +44,16 @@ public class UserController {
     public ResponseEntity<Void> deleteById(@PathVariable String id) {
         userService.deleteById(UUID.fromString(id));
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<User> update(@PathVariable String id,
+                                       @RequestBody UpdateUserDTO userDto) {
+        var updatedUser = userService.update(UUID.fromString(id), userDto);
+        if(updatedUser != null) {
+            return ResponseEntity.ok(updatedUser);
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }

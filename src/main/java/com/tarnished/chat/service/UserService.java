@@ -1,5 +1,6 @@
 package com.tarnished.chat.service;
 
+import com.tarnished.chat.dto.UpdateUserDTO;
 import com.tarnished.chat.entity.User;
 import com.tarnished.chat.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,6 @@ public class UserService {
     }
 
     public Optional<User> findById(UUID id) {
-
         return userRepository.findById(id);
     }
 
@@ -39,5 +39,35 @@ public class UserService {
 
     public void deleteById(UUID id) {
         userRepository.deleteById(id);
+    }
+
+    public User update(UUID id, UpdateUserDTO userDto){
+        var user = userRepository.findById(id);
+        if(user.isPresent()) {
+            if(user.get().getPassword().equals(userDto.currentPassword())) {
+                var updatedUser = updateUserFields(user.get(), userDto);
+                userRepository.save(updatedUser);
+                return updatedUser;
+            }
+            else{
+                throw new IllegalArgumentException("Wrong password");
+            }
+        }
+
+        return null;
+    }
+
+    private User updateUserFields(User user, UpdateUserDTO userDto) {
+        if(userDto.username() != null){
+            user.setUsername(userDto.username());
+        }
+
+        if(userDto.password() != null){
+            user.setPassword(userDto.password());
+        }
+
+        user.setUpdatedAt(LocalDateTime.now());
+
+        return user;
     }
 }
