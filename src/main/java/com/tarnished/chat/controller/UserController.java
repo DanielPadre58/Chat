@@ -3,7 +3,6 @@ package com.tarnished.chat.controller;
 import com.tarnished.chat.dto.CreateUserDTO;
 import com.tarnished.chat.entity.User;
 import com.tarnished.chat.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,5 +30,11 @@ public class UserController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable String id) {
+        userService.deleteById(UUID.fromString(id));
+        return ResponseEntity.noContent().build();
     }
 }

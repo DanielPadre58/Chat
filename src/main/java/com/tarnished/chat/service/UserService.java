@@ -2,7 +2,6 @@ package com.tarnished.chat.service;
 
 import com.tarnished.chat.entity.User;
 import com.tarnished.chat.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.tarnished.chat.dto.CreateUserDTO;
 
@@ -30,5 +29,9 @@ public class UserService {
 
     public Optional<User> findById(UUID id) {
         return userRepository.findById(id);
+    }
+
+    public void deleteById(UUID id) {
+        userRepository.deleteById(id);
     }
 }
