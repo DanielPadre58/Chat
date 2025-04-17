@@ -43,18 +43,7 @@ public class UserService {
 
     public User update(UUID id, UpdateUserDTO userDto){
         var user = userRepository.findById(id);
-        if(user.isPresent()) {
-            if(user.get().getPassword().equals(userDto.currentPassword())) {
-                var updatedUser = updateUserFields(user.get(), userDto);
-                userRepository.save(updatedUser);
-                return updatedUser;
-            }
-            else{
-                throw new IllegalArgumentException("Wrong password");
-            }
-        }
-
-        return null;
+        return user.map(value -> updateUserFields(value, userDto)).orElse(null);
     }
 
     private User updateUserFields(User user, UpdateUserDTO userDto) {
