@@ -1,14 +1,13 @@
 package com.tarnished.chat.controller;
 
-import com.tarnished.chat.dto.CreateUserDTO;
-import com.tarnished.chat.dto.UpdateUserDTO;
-import com.tarnished.chat.entity.User;
-import com.tarnished.chat.service.UserService;
+import com.tarnished.chat.dto.user.CreateUserDTO;
+import com.tarnished.chat.dto.user.UpdateUserDTO;
+import com.tarnished.chat.domain.user.User;
+import com.tarnished.chat.service.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
