@@ -1,10 +1,10 @@
-package com.tarnished.chat.service;
+package com.tarnished.chat.service.user;
 
-import com.tarnished.chat.dto.UpdateUserDTO;
-import com.tarnished.chat.entity.User;
+import com.tarnished.chat.dto.user.UpdateUserDTO;
+import com.tarnished.chat.domain.user.User;
 import com.tarnished.chat.repository.UserRepository;
 import org.springframework.stereotype.Service;
-import com.tarnished.chat.dto.CreateUserDTO;
+import com.tarnished.chat.dto.user.CreateUserDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -43,7 +43,8 @@ public class UserService {
 
     public User update(UUID id, UpdateUserDTO userDto){
         var user = userRepository.findById(id);
-        return user.map(value -> updateUserFields(value, userDto)).orElse(null);
+        var updatedUser = updateUserFields(user.get(), userDto);
+        return userRepository.save(user.get());
     }
 
     private User updateUserFields(User user, UpdateUserDTO userDto) {

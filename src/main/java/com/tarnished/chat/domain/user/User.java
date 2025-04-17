@@ -1,4 +1,4 @@
-package com.tarnished.chat.entity;
+package com.tarnished.chat.domain.user;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
