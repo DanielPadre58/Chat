@@ -7,6 +7,7 @@ import com.tarnished.chat.dto.chat.CreateChatDTO;
 import com.tarnished.chat.repository.ChatRepository;
 import com.tarnished.chat.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -47,5 +48,9 @@ public class ChatService {
         }
 
         return chatRepository.save(chat);
+    }
+
+    public void deleteChatById(Long id) {
+        chatRepository.deleteById(id);
     }
 }

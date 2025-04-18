@@ -37,7 +37,7 @@ public class Chat {
     private String name;
 
     @OneToMany(mappedBy = "chat")
-    private List<Message> messages;
+    private List<Message> messages = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -45,7 +45,7 @@ public class Chat {
             joinColumns = @JoinColumn(name = "moderator_id"),
             inverseJoinColumns = @JoinColumn(name = "chat_id")
     )
-    private List<User> moderators;
+    private List<User> moderators = new ArrayList<>();
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

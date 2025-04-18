@@ -4,6 +4,7 @@ import com.tarnished.chat.domain.chat.Chat;
 import com.tarnished.chat.domain.chat.ChatType;
 import com.tarnished.chat.dto.chat.CreateChatDTO;
 import com.tarnished.chat.service.chat.ChatService;
+import com.tarnished.chat.service.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,5 +25,11 @@ public class ChatController {
     @PostMapping("/create/group")
     private ResponseEntity<Chat> createGroupChat(@RequestBody CreateChatDTO createChatDTO) {
         return ResponseEntity.ok(chatService.createChat(createChatDTO, ChatType.Group));
+    }
+
+    @DeleteMapping("/{id}")
+    private ResponseEntity<Void> deleteChatById(@PathVariable Long id) {
+        chatService.deleteChatById(id);
+        return ResponseEntity.noContent().build();
     }
 }
