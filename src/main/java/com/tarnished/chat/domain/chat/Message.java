@@ -17,14 +17,17 @@ public class Message {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "chat_id")
     private Chat chat;
 
     @ManyToOne
-    private User user;
+    @JoinColumn(name = "sender_id")
+    private User sender;
 
     private LocalDateTime sentAt;
 
     @ManyToOne
+    @JoinColumn(name = "replying_to")
     private Message replyingTo;
 
     private boolean edited;
