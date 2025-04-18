@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,4 +46,23 @@ public class Chat {
             inverseJoinColumns = @JoinColumn(name = "chat_id")
     )
     private List<User> moderators;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    public void addModerator(User moderator) {
+        moderators.add(moderator);
+    }
+
+    public void removeModerator(User moderator) {
+        moderators.remove(moderator);
+    }
+
+    public void addUser(User user) {
+        usersId.add(user);
+    }
+
+    public void removeUser(User user) {
+        usersId.remove(user);
+    }
 }

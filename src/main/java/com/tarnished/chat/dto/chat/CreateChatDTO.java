@@ -1,4 +1,6 @@
 package com.tarnished.chat.dto.chat;
 
-public record CreateChatDTO(String creator, String chatName) {
+import com.tarnished.chat.domain.chat.ChatType;
+
+public record CreateChatDTO(String creatorId, String directUserId, String chatName) {
 }
