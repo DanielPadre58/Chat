@@ -20,15 +20,28 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
+    @Enumerated(EnumType.STRING)
+    private ChatType type;
+
+    @ManyToMany
+    @JoinTable(
+            name = "chat_users",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "chat_id")
+    )
     private List<User> usersId = new ArrayList<>();
 
     @Column(name = "name")
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "chat")
     private List<Message> messages;
 
     @ManyToMany
+    @JoinTable(
+            name = "chat_moderators",
+            joinColumns = @JoinColumn(name = "moderator_id"),
+            inverseJoinColumns = @JoinColumn(name = "chat_id")
+    )
     private List<User> moderators;
 }
