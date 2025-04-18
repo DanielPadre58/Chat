@@ -17,7 +17,12 @@ public class ChatController {
     }
 
     @PostMapping("/create/direct")
-    private ResponseEntity<Chat> createChat(@RequestBody CreateChatDTO createChatDTO) {
+    private ResponseEntity<Chat> createDirectChat(@RequestBody CreateChatDTO createChatDTO) {
         return ResponseEntity.ok(chatService.createChat(createChatDTO, ChatType.Direct));
+    }
+
+    @PostMapping("/create/group")
+    private ResponseEntity<Chat> createGroupChat(@RequestBody CreateChatDTO createChatDTO) {
+        return ResponseEntity.ok(chatService.createChat(createChatDTO, ChatType.Group));
     }
 }
