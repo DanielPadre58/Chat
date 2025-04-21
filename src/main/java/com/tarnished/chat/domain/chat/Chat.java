@@ -31,7 +31,7 @@ public class Chat {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "chat_id")
     )
-    private List<User> usersId = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
 
     @Column(name = "name")
     private String name;
@@ -59,10 +59,10 @@ public class Chat {
     }
 
     public void addUser(User user) {
-        usersId.add(user);
+        users.add(user);
     }
 
     public void removeUser(User user) {
-        usersId.remove(user);
+        users.remove(user);
     }
 }

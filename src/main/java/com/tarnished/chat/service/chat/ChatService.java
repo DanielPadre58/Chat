@@ -3,13 +3,16 @@ package com.tarnished.chat.service.chat;
 import com.tarnished.chat.domain.chat.Chat;
 import com.tarnished.chat.domain.chat.ChatType;
 import com.tarnished.chat.domain.user.User;
+import com.tarnished.chat.dto.chat.ChatDTO;
 import com.tarnished.chat.dto.chat.CreateChatDTO;
 import com.tarnished.chat.repository.ChatRepository;
 import com.tarnished.chat.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -22,7 +25,7 @@ public class ChatService {
         this.userRepository = userRepository;
     }
 
-    public Chat createChat(CreateChatDTO chatDTO, ChatType chatType) {
+    public ChatDTO createChat(CreateChatDTO chatDTO, ChatType chatType) {
         Chat chat = new Chat();
 
         if (chatType == ChatType.Group) {
@@ -47,10 +50,14 @@ public class ChatService {
             chat.setCreatedAt(LocalDateTime.now());
         }
 
-        return chatRepository.save(chat);
+        return new ChatDTO(chatRepository.save(chat));
     }
 
     public void deleteChatById(Long id) {
         chatRepository.deleteById(id);
+    }
+
+    public Optional<ChatDTO> getChatById(Long id) {
+        return chatRepository.findById(id).map(ChatDTO::new);
     }
 }
