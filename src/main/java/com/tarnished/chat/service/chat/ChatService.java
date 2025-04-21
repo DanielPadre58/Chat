@@ -8,9 +8,7 @@ import com.tarnished.chat.dto.chat.CreateChatDTO;
 import com.tarnished.chat.repository.ChatRepository;
 import com.tarnished.chat.repository.UserRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
