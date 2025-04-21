@@ -8,9 +8,9 @@ import com.tarnished.chat.dto.chat.CreateChatDTO;
 import com.tarnished.chat.repository.ChatRepository;
 import com.tarnished.chat.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -55,7 +55,13 @@ public class ChatService {
         chatRepository.deleteById(id);
     }
 
-    public Optional<ChatDTO> getChatById(Long id) {
-        return chatRepository.findById(id).map(ChatDTO::new);
+    @Transactional
+    public ChatDTO getChatById(Long id) {
+        Chat chat = chatRepository.findWithMessages(id)
+                .orElseThrow(() -> new RuntimeException("Chat not found"));
+
+        chatRepository.findWithModerators(id); // segunda query carrega os moderadores
+
+        return new ChatDTO(chat);
     }
 }

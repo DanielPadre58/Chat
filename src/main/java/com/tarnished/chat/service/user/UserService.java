@@ -9,7 +9,6 @@ import com.tarnished.chat.dto.user.CreateUserDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -22,7 +21,7 @@ public class UserService {
     }
 
     public UserDTO createUser(CreateUserDTO userDto){
-        var newUser = new User();
+        User newUser = new User();
         newUser.setUsername(userDto.username());
         newUser.setEmail(userDto.email());
         newUser.setPassword(userDto.password());
@@ -31,8 +30,10 @@ public class UserService {
         return new UserDTO(userRepository.save(newUser));
     }
 
-    public Optional<UserDTO> findById(UUID id) {
-        return userRepository.findById(id).map(UserDTO::new);
+    public UserDTO findById(UUID id) {
+        return userRepository.findById(id)
+                .map(UserDTO::new)
+                .orElseThrow(() -> new RuntimeException("Chat not found"));
     }
 
     public List<UserDTO> getAll() {
@@ -47,12 +48,11 @@ public class UserService {
     }
 
     public UserDTO update(UUID id, UpdateUserDTO userDto){
-        Optional<User> user = userRepository.findById(id);
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));;
 
-        if(user.isEmpty()) return null;
-
-        User updatedUser = updateUserFields(user.get(), userDto);
-        return new UserDTO(userRepository.save(user.get()));
+        User updatedUser = updateUserFields(user, userDto);
+        return new UserDTO(userRepository.save(user));
     }
 
     private User updateUserFields(User user, UpdateUserDTO userDto) {

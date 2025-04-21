@@ -26,12 +26,8 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable String id) {
-        var user = userService.findById(UUID.fromString(id));
-        if(user.isPresent()) {
-            return ResponseEntity.ok(user.get());
-        }
-
-        return ResponseEntity.notFound().build();
+        UserDTO user = userService.findById(UUID.fromString(id));
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping
@@ -48,7 +44,7 @@ public class UserController {
     @PatchMapping("/{id}")
     public ResponseEntity<UserDTO> update(@PathVariable String id,
                                           @RequestBody UpdateUserDTO userDto) {
-        var updatedUser = userService.update(UUID.fromString(id), userDto);
+        UserDTO updatedUser = userService.update(UUID.fromString(id), userDto);
         if(updatedUser != null) {
             return ResponseEntity.ok(updatedUser);
         }
