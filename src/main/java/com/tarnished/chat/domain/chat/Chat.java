@@ -28,8 +28,8 @@ public class Chat {
     @ManyToMany
     @JoinTable(
             name = "chat_users",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "chat_id")
+            joinColumns = @JoinColumn(name = "chat_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<User> users = new ArrayList<>();
 
@@ -42,8 +42,8 @@ public class Chat {
     @ManyToMany
     @JoinTable(
             name = "chat_moderators",
-            joinColumns = @JoinColumn(name = "moderator_id"),
-            inverseJoinColumns = @JoinColumn(name = "chat_id")
+            joinColumns = @JoinColumn(name = "chat_id"),
+            inverseJoinColumns = @JoinColumn(name = "moderator_id")
     )
     private List<User> moderators = new ArrayList<>();
 
