@@ -3,6 +3,7 @@ package com.tarnished.chat.service.chat;
 import com.tarnished.chat.domain.chat.Chat;
 import com.tarnished.chat.domain.chat.ChatType;
 import com.tarnished.chat.domain.user.User;
+import com.tarnished.chat.dto.chat.AddParticipantDTO;
 import com.tarnished.chat.dto.chat.ChatDTO;
 import com.tarnished.chat.dto.chat.CreateChatDTO;
 import com.tarnished.chat.repository.ChatRepository;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.List;
 
 @Service
 public class ChatService {
@@ -63,5 +65,28 @@ public class ChatService {
         chatRepository.findWithModerators(id); // segunda query carrega os moderadores
 
         return new ChatDTO(chat);
+    }
+
+    @Transactional
+    public ChatDTO addParticipantToChat(Long chatId, AddParticipantDTO addParticipantDTO) {
+        Chat chat = chatRepository.findById(chatId)
+                .orElseThrow(() -> new RuntimeException("Chat not found"));
+
+        if(chat.getType() == ChatType.Direct){
+            throw new RuntimeException("Cannot add participant to a direct chat");
+        }
+
+        for (UUID id : addParticipantDTO.newUsersId()) {
+            User newParticipant = userRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("User with id, " + id.toString() + " not found"));
+
+            if(chat.getUsers().contains(newParticipant)){
+                throw new RuntimeException("User with id, " + id.toString() + " is already in chat");
+            }
+
+            chat.addUser(newParticipant);
+        }
+
+        return new ChatDTO(chatRepository.save(chat));
     }
 }

@@ -1,11 +1,15 @@
 package com.tarnished.chat.controller;
 
 import com.tarnished.chat.domain.chat.ChatType;
+import com.tarnished.chat.dto.chat.AddParticipantDTO;
 import com.tarnished.chat.dto.chat.ChatDTO;
 import com.tarnished.chat.dto.chat.CreateChatDTO;
 import com.tarnished.chat.service.chat.ChatService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/chats")
@@ -37,4 +41,12 @@ public class ChatController {
         ChatDTO chat = chatService.getChatById(id);
         return ResponseEntity.ok(chat);
     }
+
+    @PatchMapping("/{id}/add")
+    private ResponseEntity<ChatDTO> addParticipantToChat(
+            @PathVariable Long id,
+            @RequestBody AddParticipantDTO addParticipantDTO) {
+        return ResponseEntity.ok(chatService.addParticipantToChat(id, addParticipantDTO));
+    }
 }
+

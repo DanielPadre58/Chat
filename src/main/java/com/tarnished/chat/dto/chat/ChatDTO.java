@@ -10,15 +10,11 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public record ChatDTO(String name, ChatType type, List<UUID> participantsId, List<UUID> moderatorsId,List<Message> messages, LocalDateTime createdAt) {
+public record ChatDTO(String name, ChatType type) {
     public ChatDTO(Chat chat){
         this(
                 chat.getName(),
-                chat.getType(),
-                chat.getUsers().stream().map(User::getId).collect(Collectors.toList()),
-                chat.getModerators().stream().map(User::getId).collect(Collectors.toList()),
-                chat.getMessages(),
-                chat.getCreatedAt()
+                chat.getType()
                 );
     }
 }
