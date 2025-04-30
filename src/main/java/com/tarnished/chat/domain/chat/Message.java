@@ -1,8 +1,10 @@
 package com.tarnished.chat.domain.chat;
 
 import com.tarnished.chat.domain.user.User;
+import com.tarnished.chat.generator.Sequence;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
 
@@ -13,8 +15,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Message {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Sequence
+    private String id;
 
     @ManyToOne
     @JoinColumn(name = "chat_id")
@@ -25,6 +27,8 @@ public class Message {
     private User sender;
 
     private LocalDateTime sentAt;
+
+    private String text;
 
     @ManyToOne
     @JoinColumn(name = "replying_to")
