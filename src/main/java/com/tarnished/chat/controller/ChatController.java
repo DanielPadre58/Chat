@@ -33,6 +33,7 @@ public class ChatController {
     @DeleteMapping("/{id}")
     private ResponseEntity<Void> deleteChatById(@PathVariable Long id) {
         chatService.deleteChatById(id);
+        chatService.updateChatsId();
         return ResponseEntity.noContent().build();
     }
 
@@ -43,15 +44,10 @@ public class ChatController {
     }
 
     @PatchMapping("/{id}/add")
-    private ResponseEntity<ChatDTO> addParticipantToChat(
+    private ResponseEntity<Void> addParticipantToChat(
             @PathVariable Long id,
             @RequestBody AddParticipantDTO addParticipantDTO) {
-        return ResponseEntity.ok(chatService.addParticipantToChat(id, addParticipantDTO));
-    }
-
-    @DeleteMapping("/delete/{id}")
-    private ResponseEntity<Void> deleteChat(@PathVariable Long id){
-        chatService.deleteChat(id);
+        chatService.addParticipantToChat(id, addParticipantDTO);
         return ResponseEntity.noContent().build();
     }
 }

@@ -68,7 +68,7 @@ public class ChatService {
     }
 
     @Transactional
-    public ChatDTO addParticipantToChat(Long chatId, AddParticipantDTO addParticipantDTO) {
+    public void addParticipantToChat(Long chatId, AddParticipantDTO addParticipantDTO) {
         Chat chat = chatRepository.findById(chatId)
                 .orElseThrow(() -> new RuntimeException("Chat not found"));
 
@@ -86,12 +86,6 @@ public class ChatService {
 
             chat.addUser(newParticipant);
         }
-
-        return new ChatDTO(chatRepository.save(chat));
-    }
-
-    public void deleteChat(Long chatId){
-        chatRepository.deleteById(chatId);
     }
 
     @Transactional
