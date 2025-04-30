@@ -36,10 +36,10 @@ public class Chat {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "chat")
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Message> messages = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(
             name = "chat_moderators",
             joinColumns = @JoinColumn(name = "chat_id"),
