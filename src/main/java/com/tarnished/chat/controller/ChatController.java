@@ -48,5 +48,11 @@ public class ChatController {
             @RequestBody AddParticipantDTO addParticipantDTO) {
         return ResponseEntity.ok(chatService.addParticipantToChat(id, addParticipantDTO));
     }
+
+    @DeleteMapping("/delete/{id}")
+    private ResponseEntity<Void> deleteChat(@PathVariable Long id){
+        chatService.deleteChat(id);
+        return ResponseEntity.noContent().build();
+    }
 }
 

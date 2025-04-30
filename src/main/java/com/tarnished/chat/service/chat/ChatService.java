@@ -89,4 +89,18 @@ public class ChatService {
 
         return new ChatDTO(chatRepository.save(chat));
     }
+
+    public void deleteChat(Long chatId){
+        chatRepository.deleteById(chatId);
+    }
+
+    @Transactional
+    public void updateChatsId(){
+        List<Chat> chats = chatRepository.findAll();
+        for(int i = 0; i < chats.size(); i++){
+            if(chats.get(i).getId() != i + 1){
+                chats.get(i).setId((long) i + 1);
+            }
+        }
+    }
 }
