@@ -65,4 +65,8 @@ public class Chat {
     public void removeUser(User user) {
         users.remove(user);
     }
+
+    public Long getMessageCount(){
+        return (long) messages.size();
+    }
 }
