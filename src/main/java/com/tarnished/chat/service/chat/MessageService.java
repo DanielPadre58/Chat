@@ -2,6 +2,7 @@ package com.tarnished.chat.service.chat;
 
 import com.tarnished.chat.domain.chat.Message;
 import com.tarnished.chat.dto.message.CreateMessageDTO;
+import com.tarnished.chat.dto.message.EditMessageDTO;
 import com.tarnished.chat.dto.message.MessageDTO;
 import com.tarnished.chat.repository.ChatRepository;
 import com.tarnished.chat.repository.MessageRepository;
@@ -41,6 +42,15 @@ public class MessageService {
         );
         message.setSentAt(LocalDateTime.now());
 
+        return new MessageDTO(messageRepository.save(message));
+    }
+
+    public MessageDTO editMessage(String messageId, EditMessageDTO editMessageDTO) {
+        Message message = messageRepository.findMessageById(messageId)
+                .orElseThrow(() -> new RuntimeException("Message not found"));
+
+        message.setText(editMessageDTO.text());
+        message.setEdited(true);
         return new MessageDTO(messageRepository.save(message));
     }
 }
