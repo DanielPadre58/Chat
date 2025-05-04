@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Message {
     @Id
-    @Sequence
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "chat_id")

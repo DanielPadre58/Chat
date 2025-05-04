@@ -26,9 +26,10 @@ public class MessageController {
 
     @PatchMapping("/{messageId}/edit")
     private ResponseEntity<MessageDTO> editMessage(
-            @PathVariable(name = "messageId") String messageId,
-            @RequestBody EditMessageDTO editMessageDTO,
-            @PathVariable String chatId){
+            @PathVariable(name = "messageId") Long messageId,
+            @PathVariable(name = "chatId") Long chatId,
+            @RequestBody EditMessageDTO editMessageDTO)
+            {
         return ResponseEntity.ok(messageService.editMessage(messageId, editMessageDTO));
     }
 }

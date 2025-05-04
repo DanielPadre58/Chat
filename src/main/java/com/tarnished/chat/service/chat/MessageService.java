@@ -24,6 +24,10 @@ public class MessageService {
         this.userRepository = userRepository;
     }
 
+    private String fullMessageId(Long chatId, Long chatMessageId){
+        return chatId + "-" + chatMessageId;
+    }
+
     @Transactional
     public MessageDTO createMessage(CreateMessageDTO createMessageDTO, Long chatId) {
         Message message = new Message();
@@ -45,8 +49,8 @@ public class MessageService {
         return new MessageDTO(messageRepository.save(message));
     }
 
-    public MessageDTO editMessage(String messageId, EditMessageDTO editMessageDTO) {
-        Message message = messageRepository.findMessageById(messageId)
+    public MessageDTO editMessage(Long messageId, EditMessageDTO editMessageDTO) {
+        Message message = messageRepository.findById(messageId)
                 .orElseThrow(() -> new RuntimeException("Message not found"));
 
         message.setText(editMessageDTO.text());
