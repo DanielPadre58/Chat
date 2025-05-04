@@ -24,10 +24,6 @@ public class MessageService {
         this.userRepository = userRepository;
     }
 
-    private String fullMessageId(Long chatId, Long chatMessageId){
-        return chatId + "-" + chatMessageId;
-    }
-
     @Transactional
     public MessageDTO createMessage(CreateMessageDTO createMessageDTO, Long chatId) {
         Message message = new Message();

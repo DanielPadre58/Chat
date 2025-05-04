@@ -26,6 +26,10 @@ public class ChatService {
         this.userRepository = userRepository;
     }
 
+    public boolean chatExists(Long chatId){
+        return chatRepository.findById(chatId).isPresent();
+    }
+
     public ChatDTO createChat(CreateChatDTO chatDTO, ChatType chatType) {
         Chat chat = new Chat();
 
