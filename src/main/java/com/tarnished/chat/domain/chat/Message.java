@@ -1,7 +1,6 @@
 package com.tarnished.chat.domain.chat;
 
 import com.tarnished.chat.domain.user.User;
-import com.tarnished.chat.generator.Sequence;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
