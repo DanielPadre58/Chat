@@ -4,6 +4,7 @@ import com.tarnished.chat.domain.chat.ChatType;
 import com.tarnished.chat.dto.chat.AddParticipantDTO;
 import com.tarnished.chat.dto.chat.ChatDTO;
 import com.tarnished.chat.dto.chat.CreateChatDTO;
+import com.tarnished.chat.dto.chat.RemoveParticipantDTO;
 import com.tarnished.chat.service.chat.ChatService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,5 +51,16 @@ public class ChatController {
         chatService.addParticipantToChat(id, addParticipantDTO);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping("/{chatId}/remove")
+    private ResponseEntity<Void> removeParticipantFromChat(
+            @PathVariable(name = "chatId") Long chatId,
+            @RequestBody RemoveParticipantDTO removeParticipantDTO
+            ){
+        chatService.removeParticipantFromChat(chatId, removeParticipantDTO);
+        chatService.updateChatsId();
+        return ResponseEntity.noContent().build();
+    }
+
 }
 

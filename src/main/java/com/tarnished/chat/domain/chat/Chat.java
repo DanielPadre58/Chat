@@ -69,4 +69,8 @@ public class Chat {
     public Long getMessageCount(){
         return (long) messages.size();
     }
+
+    public Long getParticipantsCount(){
+        return (long) users.size();
+    }
 }

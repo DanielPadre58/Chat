@@ -6,6 +6,7 @@ import com.tarnished.chat.domain.user.User;
 import com.tarnished.chat.dto.chat.AddParticipantDTO;
 import com.tarnished.chat.dto.chat.ChatDTO;
 import com.tarnished.chat.dto.chat.CreateChatDTO;
+import com.tarnished.chat.dto.chat.RemoveParticipantDTO;
 import com.tarnished.chat.repository.ChatRepository;
 import com.tarnished.chat.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -85,6 +86,20 @@ public class ChatService {
             }
 
             chat.addUser(newParticipant);
+        }
+    }
+
+    public void removeParticipantFromChat(Long chatId, RemoveParticipantDTO removeParticipantDTO){
+        Chat chat = chatRepository.findById(chatId)
+                .orElseThrow(() -> new RuntimeException("Chat not found"));
+
+        if(chat.getType() == ChatType.Direct){
+            deleteChatById(chatId);
+            return;
+        }
+
+        for (UUID id : removeParticipantDTO.usersId()) {
+            chat.removeUser(userRepository.findUserById(id));
         }
     }
 
