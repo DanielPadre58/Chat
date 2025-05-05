@@ -5,8 +5,11 @@ import com.tarnished.chat.dto.message.EditMessageDTO;
 import com.tarnished.chat.dto.message.MessageDTO;
 import com.tarnished.chat.service.chat.ChatService;
 import com.tarnished.chat.service.chat.MessageService;
+import org.aspectj.lang.annotation.DeclareError;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
 @RequestMapping("/api/v1/chats/{chatId}")
@@ -42,5 +45,14 @@ public class MessageController {
         }
 
         return ResponseEntity.ok(messageService.editMessage(messageId, editMessageDTO));
+    }
+
+    @DeleteMapping("/{messageId}/delete")
+    private ResponseEntity<Void> deleteMessageById(
+            @PathVariable(name = "messageId") Long messageId,
+            @PathVariable(name = "chatId") Long chatId
+    ) {
+        messageService.deleteMessageById(messageId);
+        return ResponseEntity.noContent().build();
     }
 }

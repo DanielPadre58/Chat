@@ -53,4 +53,8 @@ public class MessageService {
         message.setEdited(true);
         return new MessageDTO(messageRepository.save(message));
     }
+
+    public void deleteMessageById(Long id) {
+        messageRepository.deleteById(id);
+    }
 }

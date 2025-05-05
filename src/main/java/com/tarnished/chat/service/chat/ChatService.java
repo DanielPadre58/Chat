@@ -130,4 +130,17 @@ public class ChatService {
         }
     }
 
+    @Transactional
+    public List<MessageDTO> getChatMessages(Long chatId){
+        Chat chat = chatRepository.findById(chatId)
+                .orElseThrow(() -> new RuntimeException("Chat not found"));
+        chatRepository.findWithMessages(chatId);
+
+        List<MessageDTO> messages = new ArrayList<>();
+        for(Message message : chat.getMessages()){
+            messages.add(new MessageDTO(message));
+        }
+
+        return messages;
+    }
 }

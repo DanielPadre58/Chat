@@ -5,6 +5,7 @@ import com.tarnished.chat.dto.chat.AddParticipantDTO;
 import com.tarnished.chat.dto.chat.ChatDTO;
 import com.tarnished.chat.dto.chat.CreateChatDTO;
 import com.tarnished.chat.dto.chat.RemoveParticipantDTO;
+import com.tarnished.chat.dto.message.MessageDTO;
 import com.tarnished.chat.service.chat.ChatService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -63,8 +64,13 @@ public class ChatController {
     }
 
     @GetMapping("/{userId}/chats")
-    private ResponseEntity<List<ChatDTO>> getChatsByUserId(@PathVariable UUID userId) {
+    private ResponseEntity<List<ChatDTO>> getChatsByUserId(@PathVariable(name = "userId") UUID userId) {
         return ResponseEntity.ok(chatService.getChatsByUserId(userId));
+    }
+
+    @GetMapping("/{chatId}/messages")
+    private ResponseEntity<List<MessageDTO>> getChatMessages(@PathVariable(name = "chatId") Long chatId){
+        return ResponseEntity.ok(chatService.getChatMessages(chatId));
     }
 }
 
