@@ -62,5 +62,9 @@ public class ChatController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{userId}/chats")
+    private ResponseEntity<List<ChatDTO>> getChatsByUserId(@PathVariable UUID userId) {
+        return ResponseEntity.ok(chatService.getChatsByUserId(userId));
+    }
 }
 

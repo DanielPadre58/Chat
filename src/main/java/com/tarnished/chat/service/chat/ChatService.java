@@ -2,17 +2,20 @@ package com.tarnished.chat.service.chat;
 
 import com.tarnished.chat.domain.chat.Chat;
 import com.tarnished.chat.domain.chat.ChatType;
+import com.tarnished.chat.domain.chat.Message;
 import com.tarnished.chat.domain.user.User;
 import com.tarnished.chat.dto.chat.AddParticipantDTO;
 import com.tarnished.chat.dto.chat.ChatDTO;
 import com.tarnished.chat.dto.chat.CreateChatDTO;
 import com.tarnished.chat.dto.chat.RemoveParticipantDTO;
+import com.tarnished.chat.dto.message.MessageDTO;
 import com.tarnished.chat.repository.ChatRepository;
 import com.tarnished.chat.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 import java.util.List;
 
@@ -73,6 +76,16 @@ public class ChatService {
     }
 
     @Transactional
+    public List<ChatDTO> getChatsByUserId(UUID userId) {
+        List<ChatDTO> chats = new ArrayList<>();
+        for(Chat chat : chatRepository.findChatByUserId(userId)){
+         chats.add(new ChatDTO(chat));
+        }
+
+        return chats;
+    }
+
+    @Transactional
     public void addParticipantToChat(Long chatId, AddParticipantDTO addParticipantDTO) {
         Chat chat = chatRepository.findById(chatId)
                 .orElseThrow(() -> new RuntimeException("Chat not found"));
@@ -116,4 +129,5 @@ public class ChatService {
             }
         }
     }
+
 }

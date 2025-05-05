@@ -4,7 +4,7 @@ import com.tarnished.chat.domain.chat.Message;
 
 import java.util.UUID;
 
-public record CreateMessageDTO(String id, String text, UUID senderId, String replyingToId) {
+public record CreateMessageDTO(Long id, String text, UUID senderId, Long replyingToId) {
     public CreateMessageDTO(Message message){
         this(
                 message.getId(),
