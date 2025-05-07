@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,22 +28,49 @@ public class Chat {
     @ManyToMany
     @JoinTable(
             name = "chat_users",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "chat_id")
+            joinColumns = @JoinColumn(name = "chat_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> usersId = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
 
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "chat")
-    private List<Message> messages;
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Message> messages = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(
             name = "chat_moderators",
-            joinColumns = @JoinColumn(name = "moderator_id"),
-            inverseJoinColumns = @JoinColumn(name = "chat_id")
+            joinColumns = @JoinColumn(name = "chat_id"),
+            inverseJoinColumns = @JoinColumn(name = "moderator_id")
     )
-    private List<User> moderators;
+    private List<User> moderators = new ArrayList<>();
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    public void addModerator(User moderator) {
+        moderators.add(moderator);
+    }
+
+    public void removeModerator(User moderator) {
+        moderators.remove(moderator);
+    }
+
+    public void addUser(User user) {
+        users.add(user);
+    }
+
+    public void removeUser(User user) {
+        users.remove(user);
+    }
+
+    public Long getMessageCount(){
+        return (long) messages.size();
+    }
+
+    public Long getParticipantsCount(){
+        return (long) users.size();
+    }
 }

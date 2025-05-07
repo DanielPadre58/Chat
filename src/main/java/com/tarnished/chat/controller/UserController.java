@@ -2,7 +2,7 @@ package com.tarnished.chat.controller;
 
 import com.tarnished.chat.dto.user.CreateUserDTO;
 import com.tarnished.chat.dto.user.UpdateUserDTO;
-import com.tarnished.chat.domain.user.User;
+import com.tarnished.chat.dto.user.UserDTO;
 import com.tarnished.chat.service.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,22 +20,18 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<User> create(@RequestBody CreateUserDTO userDTO) {
+    public ResponseEntity<UserDTO> create(@RequestBody CreateUserDTO userDTO) {
         return ResponseEntity.ok(userService.createUser(userDTO));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> findById(@PathVariable String id) {
-        var user = userService.findById(UUID.fromString(id));
-        if(user.isPresent()) {
-            return ResponseEntity.ok(user.get());
-        }
-
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+        UserDTO user = userService.findById(UUID.fromString(id));
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAll() {
+    public ResponseEntity<List<UserDTO>> getAll() {
         return ResponseEntity.ok(userService.getAll());
     }
 
@@ -46,9 +42,9 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<User> update(@PathVariable String id,
-                                       @RequestBody UpdateUserDTO userDto) {
-        var updatedUser = userService.update(UUID.fromString(id), userDto);
+    public ResponseEntity<UserDTO> update(@PathVariable String id,
+                                          @RequestBody UpdateUserDTO userDto) {
+        UserDTO updatedUser = userService.update(UUID.fromString(id), userDto);
         if(updatedUser != null) {
             return ResponseEntity.ok(updatedUser);
         }

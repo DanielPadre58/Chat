@@ -3,6 +3,7 @@ package com.tarnished.chat.domain.chat;
 import com.tarnished.chat.domain.user.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
 
@@ -25,6 +26,8 @@ public class Message {
     private User sender;
 
     private LocalDateTime sentAt;
+
+    private String text;
 
     @ManyToOne
     @JoinColumn(name = "replying_to")
