@@ -3,7 +3,6 @@ package com.tarnished.chat.domain.chat;
 import com.tarnished.chat.domain.user.User;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
 

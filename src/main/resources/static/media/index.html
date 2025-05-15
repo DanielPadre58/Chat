@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MonoChat</title>
+    <link rel="stylesheet" href="../styles/index/header.css">
+    <link rel="stylesheet" href="../styles/index/sidebar.css">
+</head>
+<body>
+    <header>
+        <div class="header_container">
+            <div class="header_icon_container header_container_icon_active">
+                <i class="fa-solid fa-user-group"></i>
+                <p>friends</p>
+            </div>
+            <div class="header_icon_container">
+                <i class="fa-solid fa-comments"></i>
+                <p>chats</p>
+            </div>
+        </div>
+        <div class="header_container">
+            <div class="header_search_container">
+                <label for="search_field"></label>
+                <input type="text" id="search_field" placeholder="search"></input>
+                <button id="search_field_button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+            <div class="header_icon_container">
+                <i class="fa-solid fa-circle-user"></i>
+                <p>profile</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="main_sidebar">
+            <div class="sidebar_container sidebar_container_open" id="sidebar_friends">
+                <div class="sidebar_element friend_online sidebar_element_selected">
+                    <img src="../assets/taiga.jpg" alt="friend_image">
+                    <p class="friend_name">Taiga Aisaka</p>
+                </div>
+                <div class="sidebar_element friend_offline">
+                    <img src="../assets/frieren.jpg" alt="friend_image"><>
+                    <p class="friend_name">Frieren</p></>
+                </div>
+                <div class="sidebar_element friend_offline">
+                    <img src="../assets/maomao.jpg" alt="friend_image">
+                    <p class="friend_name">Maomao</p>
+                </div>
+            </div>
+            <div class="sidebar_container sidebar_container_closed" id="sidebar_chats">
+                <div class="sidebar_element sidebar_element_selected">
+                    <img src="../assets/tralala.jpg" alt="chat_image">
+                    <p>Armario</p>
+                </div>
+                <div class="sidebar_element">
+                    <img src="../assets/sahur.jpg" alt="chat_image">
+                    <p>Desempregados</p>
+                </div>
+                <div class="sidebar_element">
+                    <img src="../assets/patapim.jpg" alt="chat_image">
+                    <p>brainrot</p>
+                </div>
+            </div>
+        </div>
+        <div class="chat">
+            <div class="chat_header">
+                <div class="chat_participants_container">
+                    <div class="chat_participant">
+                        <img src="#" alt="">
+                    </div>
+                </div>
+                <div class="chat_info">
+                    
+                </div>
+            </div>
+            <div class="chat_messages">
+
+            </div>
+            <div class="chat_input">
+
+            </div>
+        </div>
+    </main>
+    <script src="https://kit.fontawesome.com/583edf6ba1.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,15 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-body{
-    width: 100vw;
+html, body{
+    width: 100%;
+    height: 100%;
     margin: 0;
     padding: 0;
     font-family: 'Quantico', sans-serif;
     background: grey;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 header{
     width: 100%;
+    box-sizing: border-box;
     background: black;
     display: flex;
     justify-content: space-between;
@@ -26,12 +30,12 @@ header{
 }
 
 .header_icon_container{
+    width: 73px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px;
-    margin: 0 10px;
+    padding: 10px 16px;
     position: relative;
 }
 
@@ -48,6 +52,11 @@ header{
     transition: transform 0.2s linear, opacity 0.2s linear;
     opacity: 0;
     pointer-events: none;
+}
+
+.header_container_icon_active::after {
+    transform: scaleX(1);
+    opacity: 1;
 }
 
 .header_icon_container:hover {
@@ -84,6 +93,7 @@ header{
 }
 
 .header_search_container{
+    margin: 0 30px;
     display: flex;
     align-items: center;
     border-radius: 20px;
